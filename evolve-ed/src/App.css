@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: superFunky;
+  src: url(../src/fonts/SuperFunky-lgmWw.ttf);
+}
+@font-face {
+  font-family: limee;
+  src: url(../src/fonts/Azonix-1VB0.otf);
+}
+
+.titleName{
+  font-family: superFunky;
+  font-size: 50px;
+  color: black;
+}
+.header1{
+  font-family: limee;
+  font-size: 50px;
+  color: black;
+}
