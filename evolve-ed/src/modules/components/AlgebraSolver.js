@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-function AlgebraSolver() {
-  const [equation, setEquation] = useState("");
+function AlgebraSolver(props) {
   const [solution, setSolution] = useState("");
   const [workings, setWorkings] = useState("");
   const [split, setSplit] = useState("");
   const [likeTerms, setLikeTerms] = useState("");
   const [addStrings, setAddStrings] = useState("");
   const [addNums, setAddNums] = useState("");
+  const equation = props.theEquation;
 
   const symbols = ["+", "-", "/", "x"];
 
@@ -97,19 +97,19 @@ function AlgebraSolver() {
     if (result % 1 === 0) {
       return result;
     }else{
-        return "Working on it"
+        return ["Working on it",  result]
     }
   };
 
   return (
     <div>
       <h1>Linear Equation Solver</h1>
-      <input
+      {/* <input
         type="text"
         value={equation}
         onChange={(e) => setEquation(e.target.value)}
         placeholder="Enter equation (e.g., 4z + 5 = 5z + 2)"
-      />
+      /> */}
       <button onClick={solveEquation}>Solve</button>
       <div>
         {solution && (
