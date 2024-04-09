@@ -2,6 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import backgroundImage from "../../img/blend.jpg";
 import { Button } from "@mui/material";
+import git from "../../img/test.png";
 
 function Section3() {
   return (
@@ -23,7 +24,11 @@ function Section3() {
 
       }}
     >
-
+ <img
+                src={git}
+                alt="SVG"
+                style={{ width: "100%", marginBottom: "-100px" }}
+              />
 
     </div>
   );
