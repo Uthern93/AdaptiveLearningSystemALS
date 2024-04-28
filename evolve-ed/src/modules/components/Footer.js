@@ -7,7 +7,7 @@ function Footer() {
     <div
     style={{
 
-      background: "#b6977d",
+      background: "#175060",
       display: "flex",
       flexDirection: "column", // Display flex items in a column
       alignItems: "center",
@@ -17,10 +17,7 @@ function Footer() {
       padding: "20px",
     }}
   >
-      {/* Content of your footer */}
-      <p>This is your footer content.</p>
-
-      <p>This is your footer content.</p>
+      <p>Copyright © 2024 Evolve-ed.</p>
 
 
     </div>

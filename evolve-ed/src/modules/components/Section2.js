@@ -15,10 +15,13 @@ const SectionContainer = styled.div`
 const StyledHeading = styled.h1`
   text-align: center;
   width: 50%;
+
   
   @media (max-width: 768px) {
     width: 80%;
-    color: red;
+    font-size: 24px;
+    border: 2px  solid black;
+
   }
 `;
 
@@ -27,8 +30,10 @@ const StyledParagraph = styled.p`
   width: 50%;
   
   @media (max-width: 768px) {
-    width: 80%;
-    color: red;
+    width: 100%;
+    font-size: 18px;
+    border: 2px  solid black;
+
   }
 `;
 

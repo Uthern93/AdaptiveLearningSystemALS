@@ -31,7 +31,7 @@ function Section1() {
       <Header />
       <div
         style={{
-          position: "relative", // Change to relative to ensure button position correctly
+          position: "relative", 
           zIndex: 1,
           color: "#323232",
           textAlign: "center",
@@ -52,9 +52,9 @@ function Section1() {
             fontSize: "1.5rem",
           }}
           variant="outlined"
-          onClick={() => navigate("/signup")}
+          onClick={() => navigate("/subjects")}
         >
-          Register
+          Get Startedf
         </Button>
       </div>
       <div className="main" id="section1"></div>
@@ -63,12 +63,12 @@ function Section1() {
         href="#section2"
         style={{
           position: "absolute",
-          bottom: "5%", // Adjust position from bottom
+          bottom: "5%", 
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 1,
-          width: "40px", // Set fixed width
-          height: "40px", // Set fixed height
+          width: "40px", 
+          height: "40px", 
           backgroundImage: `url(${scroll})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "25px 40px",
