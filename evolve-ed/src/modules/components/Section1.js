@@ -52,9 +52,9 @@ function Section1() {
             fontSize: "1.5rem",
           }}
           variant="outlined"
-          onClick={() => navigate("/subjects")}
+          onClick={() => navigate("/signup")}
         >
-          Get Startedf
+          Get Started
         </Button>
       </div>
       <div className="main" id="section1"></div>

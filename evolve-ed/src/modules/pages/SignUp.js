@@ -1,27 +1,27 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { useNavigate } from 'react-router-dom';
-import Slide from '@mui/material/Slide';
-import { useState } from 'react';
-import useWindowSize from 'react-use/lib/useWindowSize'
-import Confetti from 'react-confetti'
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { useNavigate } from "react-router-dom";
+import Slide from "@mui/material/Slide";
+import { useState } from "react";
+import useWindowSize from "react-use/lib/useWindowSize";
+import Confetti from "react-confetti";
 
 function Copyright(props) {
   return (
@@ -43,8 +43,8 @@ function Copyright(props) {
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-function Alert({username}) {
-  const { width, height } = useWindowSize()
+function Alert({ username }) {
+  const { width, height } = useWindowSize();
 
   const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
@@ -58,10 +58,7 @@ function Alert({username}) {
   };
   return (
     <React.Fragment>
-<Confetti
-      width={width}
-      height={height}
-    />
+      <Confetti width={width} height={height} />
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -72,7 +69,10 @@ function Alert({username}) {
         <DialogTitle>{"Your username"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-          Your username is <Typography component="span" fontWeight="bold">{username}</Typography>
+            Your username is{" "}
+            <Typography component="span" fontWeight="bold">
+              {username}
+            </Typography>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -85,7 +85,7 @@ function Alert({username}) {
 
 function TandC(props) {
   const [open, setOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState('paper');
+  const [scroll, setScroll] = React.useState("paper");
   const [checked, setChecked] = useState(false);
 
   const handleClickOpen = (scrollType) => () => {
@@ -107,16 +107,18 @@ function TandC(props) {
     }
   }, [open]);
   const handleChange = () => {
-    setChecked(!checked); 
-    setOpen(true);// toggle the checked state
+    setChecked(!checked);
+    setOpen(true); // toggle the checked state
   };
 
   return (
     <React.Fragment>
-    <FormControlLabel
-      control={<Checkbox checked={checked} onChange={handleChange} color="primary" />}
-      label="I agree to the Terms and conditions"
-    />
+      <FormControlLabel
+        control={
+          <Checkbox checked={checked} onChange={handleChange} color="primary" />
+        }
+        label="I agree to the Terms and conditions"
+      />
       <Dialog
         open={open}
         onClose={handleClose}
@@ -125,7 +127,7 @@ function TandC(props) {
         aria-describedby="scroll-dialog-description"
       >
         <DialogTitle id="scroll-dialog-title">Terms and Conditions</DialogTitle>
-        <DialogContent dividers={scroll === 'paper'}>
+        <DialogContent dividers={scroll === "paper"}>
           <DialogContentText
             id="scroll-dialog-description"
             ref={descriptionElementRef}
@@ -136,9 +138,9 @@ function TandC(props) {
                 () => `Cras mattis consectetur purus sit amet fermentum.
 Cras justo odio, dapibus ac facilisis in, egestas eget quam.
 Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
+Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
               )
-              .join('\n')}
+              .join("\n")}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -150,48 +152,54 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
   );
 }
 
-
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
   const [signUpSuccess, setSignUpSuccess] = useState(false);
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const firstName = data.get('firstName');
-    const lastName = data.get('lastName');
-    const email = data.get('email');
-    const password = data.get('password');
+    const firstName = data.get("firstName");
+    const lastName = data.get("lastName");
+    const email = data.get("email");
+    const password = data.get("password");
 
     // Construct username
-    const generatedUsername = `${firstName}${lastName.charAt(0)}${new Date().getFullYear() % 100}`;
+    const generatedUsername = `${firstName}${lastName.charAt(0)}${
+      new Date().getFullYear() % 100
+    }`;
 
     try {
-      const response = await fetch('https://bargichk.pythonanywhere.com/accounts/register/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username: generatedUsername, email, password }),
-      });
+      const response = await fetch(
+        "https://bargichk.pythonanywhere.com/accounts/register/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: generatedUsername,
+            email,
+            password,
+          }),
+        }
+      );
       if (response.ok) {
         // Successfully signed up
         setUsername(generatedUsername);
         setSignUpSuccess(true);
-        console.log('Signed up successfully');
+        console.log("Signed up successfully");
         // Return any appropriate message or handle success
       } else {
         // Handle error response
-        console.error('Sign up failed:', response.statusText);
+        console.error("Sign up failed:", response.statusText);
         // Return any appropriate message or handle failure
       }
     } catch (error) {
-      console.error('Error during sign up:', error);
+      console.error("Error during sign up:", error);
       // Handle network errors
     }
   };
@@ -202,18 +210,23 @@ export default function SignUp() {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -271,8 +284,8 @@ export default function SignUp() {
 
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/login" variant="body2">
-                  Already have an account? Log in
+                <Link onClick={() => navigate("/login")} variant="body2">
+                  {"Already have an account? Log in"}
                 </Link>
               </Grid>
             </Grid>
