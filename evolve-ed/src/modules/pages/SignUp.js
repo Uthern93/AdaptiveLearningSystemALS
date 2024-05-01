@@ -20,6 +20,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useNavigate } from 'react-router-dom';
 import Slide from '@mui/material/Slide';
 import { useState } from 'react';
+import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
 
 function Copyright(props) {
   return (
@@ -42,6 +44,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 function Alert({username}) {
+  const { width, height } = useWindowSize()
+
   const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
 
@@ -54,7 +58,10 @@ function Alert({username}) {
   };
   return (
     <React.Fragment>
-
+<Confetti
+      width={width}
+      height={height}
+    />
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -147,6 +154,7 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [signUpSuccess, setSignUpSuccess] = useState(false);
