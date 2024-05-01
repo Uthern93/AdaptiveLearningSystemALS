@@ -7,6 +7,7 @@ import SignUp from'./modules/pages/SignUp';
 import Subjects from './modules/pages/Subjects';
 import Algebra from './modules/pages/Algebra';
 import Home from './modules/pages/Home';
+import Tutorials from './modules/pages/Tutorials';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/subjects" element={<Subjects />} />
+          <Route path="/tutorials" element={<Tutorials />} />
 
           <Route path="/algebra" element={<Algebra />} />
 

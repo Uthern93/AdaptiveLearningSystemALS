@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Stack from "@mui/material/Stack";
-import {simplify} from 'mathjs'
+import {evaluate, simplify} from 'mathjs'
 
 function Section1() {
   const navigate = useNavigate();
