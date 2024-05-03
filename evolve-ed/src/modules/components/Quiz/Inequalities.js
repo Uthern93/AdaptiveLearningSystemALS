@@ -70,7 +70,7 @@ export default function Inequalities() {
 
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="contained" onClick={handleClickOpen}>
         Quiz
       </Button>
       <Dialog

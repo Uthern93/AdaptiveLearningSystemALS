@@ -465,12 +465,12 @@ export default function HorizontalLinearStepper() {
               <Button
   onClick={handleReset}
   sx={{
-    backgroundColor: '#003366', // Dark blue color
-    color: 'white', // White text color
+    backgroundColor: '#003366', 
+    color: 'white', 
     '&:hover': {
-      backgroundColor: '#002147', // Darker shade of blue on hover
+      backgroundColor: '#002147', 
     },
-    mr: 1, // Margin right for spacing
+    mr: 1, 
   }}
 >
   Redo Tutorial
@@ -479,12 +479,12 @@ export default function HorizontalLinearStepper() {
             <Button
   onClick={() => navigate("/subjects")}
   sx={{
-    backgroundColor: '#003366', // Dark blue color
-    color: 'white', // White text color
+    backgroundColor: '#003366',
+    color: 'white', 
     '&:hover': {
-      backgroundColor: '#002147', // Darker shade of blue on hover
+      backgroundColor: '#002147', 
     },
-    mr: 1, // Margin right for spacing
+    mr: 1, 
   }}
 >
   Home

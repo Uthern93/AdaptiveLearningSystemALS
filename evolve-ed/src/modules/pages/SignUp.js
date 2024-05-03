@@ -32,9 +32,9 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://evolve-ed.netlify.app/">
+      <Button color="inherit" href="https://evolve-ed.netlify.app/">
         evolve-ed
-      </Link>{" "}
+      </Button>{" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -108,7 +108,7 @@ function TandC(props) {
   }, [open]);
   const handleChange = () => {
     setChecked(!checked);
-    setOpen(true); // toggle the checked state
+    setOpen(true);
   };
 
   return (
@@ -133,14 +133,42 @@ function TandC(props) {
             ref={descriptionElementRef}
             tabIndex={-1}
           >
-            {[...new Array(50)]
-              .map(
-                () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
-              )
-              .join("\n")}
+            <strong>Introduction to Terms and Conditions</strong>
+            <br />
+            By agreeing to these terms and conditions, you are consenting to the
+            responsible and ethical use of the system. This implies a
+            recognition that your name, email address, and any data generated
+            through your interaction with the platform, including questions
+            asked and answers provided, may be stored and analyzed. This data
+            may be utilized for improving the system's functionality, enhancing
+            user experience, and conducting research.
+            <br />
+            <br />
+            <strong> Data Collection and Privacy</strong>
+            <br />
+            It's important to emphasize that while your information may be used
+            for these purposes, your privacy remains paramount. Your email will
+            never be shared with third parties, and you will not receive
+            unsolicited emails as a result of your interaction with the system.
+            <br />
+            <br />
+            <strong>Responsible Use</strong>
+            <br />
+            Furthermore, it is expected that users engage with the system with
+            integrity and sincerity. The purpose of this platform is to
+            facilitate learning and personal growth. Therefore, users are
+            encouraged to utilize its resources to enhance their understanding
+            of various topics and subjects. It is not appropriate to exploit the
+            system to gain unfair advantage in academic settings by using its
+            features to answer questions or complete assignments prepared by
+            educational institutions or teaching staff.
+            <br />
+            <br />
+            <strong> Purpose of the Platform</strong>
+            <br />
+            By accepting these terms, you acknowledge your commitment to using
+            the system responsibly and for its intended purpose of fostering
+            genuine learning experiences.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -167,7 +195,6 @@ export default function SignUp() {
     const email = data.get("email");
     const password = data.get("password");
 
-    // Construct username
     const generatedUsername = `${first_name}${last_name.charAt(0)}${
       new Date().getFullYear() % 100
     }`;
@@ -190,21 +217,20 @@ export default function SignUp() {
         }
       );
       if (response.ok) {
-        // Successfully signed up
         setUsername(generatedUsername);
         setSignUpSuccess(true);
         console.log("Signed up successfully");
-        // Return any appropriate message or handle success
       } else {
-        // Handle error response
-        console.error("Sign up failed:", response.statusText,generatedUsername,
-        email,
-        password);
-        // Return any appropriate message or handle failure
+        console.error(
+          "Sign up failed:",
+          response.statusText,
+          generatedUsername,
+          email,
+          password
+        );
       }
     } catch (error) {
       console.error("Error during sign up:", error);
-      // Handle network errors
     }
   };
   return (
@@ -288,9 +314,9 @@ export default function SignUp() {
 
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link onClick={() => navigate("/login")} variant="body2">
+                <Button onClick={() => navigate("/login")} variant="body2">
                   {"Already have an account? Log in"}
-                </Link>
+                </Button>
               </Grid>
             </Grid>
           </Box>

@@ -26,9 +26,9 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://evolve-ed.netlify.app/">
+      <Button id = "link" color="inherit" href="https://evolve-ed.netlify.app/">
         evolve-ed
-      </Link>{" "}
+      </Button>{" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -89,7 +89,6 @@ export default function Login() {
           navigate("/subjects", { state: { username } });
         }, 2000);
       } else {
-        // Handle login error
         Fail();
         setError("Invalid username or password");
       }
@@ -170,9 +169,9 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link onClick={() => navigate("/signup")} variant="body2">
+                <Button onClick={() => navigate("/signup")} variant="body2">
                   {"Don't have an account? Sign Up"}
-                </Link>
+                </Button>
               </Grid>
             </Grid>
           </Box>

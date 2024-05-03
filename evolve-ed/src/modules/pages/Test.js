@@ -67,7 +67,6 @@ const status = [
   }
 ];
 
-// ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 const DashboardDefault = () => {
   const [value, setValue] = useState('today');

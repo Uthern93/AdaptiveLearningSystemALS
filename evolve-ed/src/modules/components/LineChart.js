@@ -1,14 +1,11 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
 
-// third-party
 import ReactApexChart from 'react-apexcharts';
 import { useLocation } from "react-router-dom";
 
-// chart options
 const areaChartOptions = {
   chart: {
     height: 450,
@@ -42,16 +39,13 @@ const LineChart = ({ slot }) => {
   const { username } = location.state || {};
   console.log(username);
   useEffect(() => {
-    // Fetch data from the API
     fetch('https://bargichk.pythonanywhere.com/students/getStudent')
       .then(response => response.json())
       .then(data => {
-        // Filter data for user "KeabB24" and extract numQuestions
         const numQuestionsKeabB24 = data
           .filter(entry => entry.user === username)
           .map(entry => entry.numQuestions);
         
-        // Set the numQuestions state
         setNumQuestions(numQuestionsKeabB24);
       })
       .catch(error => console.error('Error fetching data:', error));

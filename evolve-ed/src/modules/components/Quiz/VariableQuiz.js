@@ -84,7 +84,7 @@ export default function VariableQuiz() {
   return (
     <React.Fragment>
             {isCorrect && <Confetti width={width} height={height} />} 
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="contained" onClick={handleClickOpen}>
         Quiz
       </Button>
       <Dialog

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-// material-ui
 import {
   Avatar,
   AvatarGroup,
@@ -18,7 +17,6 @@ import {
   Typography
 } from '@mui/material';
 
-// project import
 import InfoTable from '../components/InfoTable';
 import LineChart from '../components/LineChart';
 import BarChart from '../components/BarChart';
@@ -33,14 +31,12 @@ import avatar3 from "@mui/material/Avatar";
 import avatar4 from "@mui/material/Avatar";
 import Linechart from '../components/LineChart';
 
-// avatar style
 const avatarSX = {
   width: 36,
   height: 36,
   fontSize: '1rem'
 };
 
-// action style
 const actionSX = {
   mt: 0.75,
   ml: 1,
@@ -50,7 +46,6 @@ const actionSX = {
   transform: 'none'
 };
 
-// sales report status
 const status = [
   {
     value: 'today',
@@ -93,12 +88,12 @@ const Dashboard = () => {
   size="small"
   onClick={() => setSlot('month')}
   sx={{
-    backgroundColor: slot === 'month' ? '#003366' : 'transparent', // Dark blue background if active, transparent otherwise
-    color: slot === 'month' ? 'white' : 'black', // White text if active, black otherwise
+    backgroundColor: slot === 'month' ? '#003366' : 'transparent', 
+    color: slot === 'month' ? 'white' : 'black', 
     '&:hover': {
-      backgroundColor: '#002147', // Darker shade of blue on hover
+      backgroundColor: '#002147', 
     },
-    mr: 1, // Margin right for spacing
+    mr: 1, 
   }}
 >
   Month
@@ -108,10 +103,10 @@ const Dashboard = () => {
   size="small"
   onClick={() => setSlot('week')}
   sx={{
-    backgroundColor: slot === 'week' ? '#003366' : 'transparent', // Dark blue background if active, transparent otherwise
-    color: slot === 'week' ? 'white' : 'black', // White text if active, black otherwise
+    backgroundColor: slot === 'week' ? '#003366' : 'transparent',
+    color: slot === 'week' ? 'white' : 'black',
     '&:hover': {
-      backgroundColor: '#002147', // Darker shade of blue on hover
+      backgroundColor: '#002147', 
     },
   }}
 >

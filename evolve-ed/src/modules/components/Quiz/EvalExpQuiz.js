@@ -92,7 +92,7 @@ export default function EvalExpQuiz() {
     <React.Fragment>
                   {isCorrect && <Confetti width={width} height={height} />} {/* Conditionally render Confetti */}
 
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="contained" onClick={handleClickOpen}>
         Quiz{" "}
       </Button>
       <Dialog
