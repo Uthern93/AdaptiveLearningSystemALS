@@ -7,6 +7,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { ToastContainer, toast } from "react-toastify";
+import useWindowSize from "react-use/lib/useWindowSize";
+import Confetti from "react-confetti";
 
 // Function definition
 function generateEquation() {
@@ -26,7 +28,10 @@ function generateEquation() {
 export default function VariableQuiz() {
   const [open, setOpen] = React.useState(false);
   const [correctAnswer, setCorrectAnswer] = React.useState("");
-  const { equation, variable } = React.useMemo(generateEquation, []); // Generate equation when component mounts
+  const { equation, variable } = React.useMemo(generateEquation, []); 
+  const { width, height } = useWindowSize();
+  const [isCorrect, setIsCorrect] = React.useState(false); 
+
 
   React.useEffect(() => {
     setCorrectAnswer(variable); // Set correctAnswer when component mounts
@@ -44,13 +49,13 @@ export default function VariableQuiz() {
     console.log("User entered answer:", userEnteredAnswer);
     console.log("Correct answer:", correctAnswer);
     if (userEnteredAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+      setIsCorrect(true); 
       Correct(userEnteredAnswer);
     } else {
       TryAgain(userEnteredAnswer);
     }
   };
-
-  const Correct = (userEnteredAnswer) =>
+  const Correct = (userEnteredAnswer) => {
     toast.success(`${userEnteredAnswer.toLowerCase()} is the correct answer 🎉`, {
       position: "top-right",
       autoClose: 5000,
@@ -61,6 +66,8 @@ export default function VariableQuiz() {
       progress: undefined,
       theme: "colored",
     });
+  };
+  
 
   const TryAgain = (userEnteredAnswer) =>
     toast.warn(`${userEnteredAnswer.toLowerCase()} was incorrect try Again 🔁`, {
@@ -76,6 +83,7 @@ export default function VariableQuiz() {
 
   return (
     <React.Fragment>
+            {isCorrect && <Confetti width={width} height={height} />} 
       <Button variant="outlined" onClick={handleClickOpen}>
         Quiz
       </Button>

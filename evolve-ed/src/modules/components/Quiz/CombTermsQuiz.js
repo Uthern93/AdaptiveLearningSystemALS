@@ -7,12 +7,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { ToastContainer, toast } from "react-toastify";
+import useWindowSize from "react-use/lib/useWindowSize";
+import Confetti from "react-confetti";
 
 export default function CombTermsQuiz() {
   const [open, setOpen] = React.useState(false);
   const [expression, setExpression] = React.useState("");
   const [answer, setAnswer] = React.useState("");
-
+  const [isCorrect, setIsCorrect] = React.useState(false); 
+  const { width, height } = useWindowSize();
 
   const handleClickOpen = () => {
     const { expression, answer } = generateEquation();
@@ -57,6 +60,8 @@ function checkAnswer(userAnswer){
     console.log("me",userAnswer ,"ans", newAnswer)
     console.log("Correct!");
     Correct();
+    setIsCorrect(true); // Set the state to true if the answer is correct
+
   } else {
     console.log("me",userAnswer ,"ans", newAnswer)
     TryAgain()
@@ -94,6 +99,8 @@ toast.warn(
 
   return (
     <React.Fragment>
+                  {isCorrect && <Confetti width={width} height={height} />} {/* Conditionally render Confetti */}
+
       <Button variant="outlined" onClick={handleClickOpen}>
         Open form dialog
       </Button>

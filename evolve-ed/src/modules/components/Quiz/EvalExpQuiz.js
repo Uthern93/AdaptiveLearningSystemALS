@@ -7,10 +7,14 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { ToastContainer, toast } from "react-toastify";
+import useWindowSize from "react-use/lib/useWindowSize";
+import Confetti from "react-confetti";
 
 export default function EvalExpQuiz() {
   const [open, setOpen] = useState(false);
   const [correctAnswer, setCorrectAnswer] = React.useState("");
+  const [isCorrect, setIsCorrect] = React.useState(false); // State to track if the answer is correct
+  const { width, height } = useWindowSize();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -49,6 +53,8 @@ export default function EvalExpQuiz() {
     ) {
       console.log("correct");
       Correct(userEnteredAnswer);
+      setIsCorrect(true); // Set the state to true if the answer is correct
+
     } else {
       console.log("wrong");
 
@@ -84,6 +90,8 @@ export default function EvalExpQuiz() {
     );
   return (
     <React.Fragment>
+                  {isCorrect && <Confetti width={width} height={height} />} {/* Conditionally render Confetti */}
+
       <Button variant="outlined" onClick={handleClickOpen}>
         Quiz{" "}
       </Button>

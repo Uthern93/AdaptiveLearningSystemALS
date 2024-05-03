@@ -162,13 +162,13 @@ export default function SignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const firstName = data.get("firstName");
-    const lastName = data.get("lastName");
+    const first_name = data.get("first_name");
+    const last_name = data.get("last_name");
     const email = data.get("email");
     const password = data.get("password");
 
     // Construct username
-    const generatedUsername = `${firstName}${lastName.charAt(0)}${
+    const generatedUsername = `${first_name}${last_name.charAt(0)}${
       new Date().getFullYear() % 100
     }`;
 
@@ -181,6 +181,8 @@ export default function SignUp() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            first_name,
+            last_name,
             username: generatedUsername,
             email,
             password,
@@ -195,7 +197,9 @@ export default function SignUp() {
         // Return any appropriate message or handle success
       } else {
         // Handle error response
-        console.error("Sign up failed:", response.statusText);
+        console.error("Sign up failed:", response.statusText,generatedUsername,
+        email,
+        password);
         // Return any appropriate message or handle failure
       }
     } catch (error) {
@@ -231,10 +235,10 @@ export default function SignUp() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="first_name"
                   required
                   fullWidth
-                  id="firstName"
+                  id="first_name"
                   label="First Name"
                   autoFocus
                 />
@@ -243,9 +247,9 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
+                  id="last_name"
                   label="Last Name"
-                  name="lastName"
+                  name="last_name"
                   autoComplete="family-name"
                 />
               </Grid>
