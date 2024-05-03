@@ -16,18 +16,12 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Landing />} />
-
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/subjects" element={<Subjects />} />
           <Route path="/tutorials" element={<Tutorials />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/test" element={<Test />} />
-
-
           <Route path="/algebra" element={<Algebra />} />
-
-
         </Routes>
       </Router>
     </div>
