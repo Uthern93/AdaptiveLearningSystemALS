@@ -14,8 +14,7 @@ import EquivalentExp from "../components/Quiz/EquivalentExp";
 import EvalExpQuiz from "../components/Quiz/EvalExpQuiz";
 import Inequalities from "../components/Quiz/Inequalities";
 import LinearEq from "../components/Quiz/LinearEq";
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 const steps = [
   "Variables",
@@ -389,18 +388,21 @@ export default function HorizontalLinearStepper() {
                 }}
               >
                 <Typography variant="body1">
-                  For the example: <br /> <strong>5x−4&gt;2x+3</strong> <br />  First,
-                  let's isolate the variable <strong>x</strong> on one side. We'll do this by
-                  moving terms around. Subtracting <strong>2x</strong> from both
-                  sides, we get <strong>5x−2x−4&gt;3 </strong>
+                  For the example: <br /> <strong>5x−4&gt;2x+3</strong> <br />{" "}
+                  First, let's isolate the variable <strong>x</strong> on one
+                  side. We'll do this by moving terms around. Subtracting{" "}
+                  <strong>2x</strong> from both sides, we get{" "}
+                  <strong>5x−2x−4&gt;3 </strong>
                   Simplifying this, we have: <strong>3x−4&gt;3</strong> Next,
-                  let's isolate <strong>x</strong> completely. We'll add <strong>4</strong> to
-                  both sides: <strong>3x−4+4&gt;3+4 = 3x&gt;7 </strong> Finally,
-                  to find <strong>x</strong> , we divide both sides by{" "}
-                  <strong>3.</strong>{" "}<br/>
-                  <strong>3x/3 &gt; 7/3 = x &gt; 7/3 x&gt; 3 7 ​ </strong> So,{" "}
-                  <strong>x</strong> can take any value greater than{" "}
-                  <strong>7/3</strong> ​ 
+                  let's isolate <strong>x</strong> completely. We'll add{" "}
+                  <strong>4</strong> to both sides:{" "}
+                  <strong>3x−4+4&gt;3+4 = 3x&gt;7 </strong> Finally, to find{" "}
+                  <strong>x</strong> , we divide both sides by{" "}
+                  <strong>3.</strong> <br />
+                  <strong>
+                    3x/3 &gt; 7/3 = x &gt; 7/3 x&gt; 3 7 ​{" "}
+                  </strong> So, <strong>x</strong> can take any value greater
+                  than <strong>7/3</strong> ​
                 </Typography>
               </div>
               <Inequalities />
@@ -441,19 +443,52 @@ export default function HorizontalLinearStepper() {
           <React.Fragment>
             <Confetti width={width} height={height} />
 
-            <Box sx={{ textAlign: 'center' }}>
-  <Typography sx={{ mt: 2, mb: 1 }}>
-    <iframe src="https://giphy.com/embed/obN7DdnUWxuyqz5qZS" width="480" height="384" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    <p><a href="https://giphy.com/gifs/nice-done-did-it-obN7DdnUWxuyqz5qZS">via GIPHY</a></p>
-  </Typography>
-</Box>
+            <Box sx={{ textAlign: "center" }}>
+              <Typography sx={{ mt: 2, mb: 1 }}>
+                <iframe
+                  src="https://giphy.com/embed/obN7DdnUWxuyqz5qZS"
+                  width="480"
+                  height="384"
+                  frameBorder="0"
+                  class="giphy-embed"
+                  allowFullScreen
+                ></iframe>
+                <p>
+                  <a href="https://giphy.com/gifs/nice-done-did-it-obN7DdnUWxuyqz5qZS">
+                    via GIPHY
+                  </a>
+                </p>
+              </Typography>
+            </Box>
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Box sx={{ flex: "1 1 auto" }} />
-              <Button onClick={handleReset}>Redo Tutorial</Button>
-            </Box>
+              <Button
+  onClick={handleReset}
+  sx={{
+    backgroundColor: '#003366', // Dark blue color
+    color: 'white', // White text color
+    '&:hover': {
+      backgroundColor: '#002147', // Darker shade of blue on hover
+    },
+    mr: 1, // Margin right for spacing
+  }}
+>
+  Redo Tutorial
+</Button>            </Box>
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button onClick={() => navigate('/subjects')}>Home</Button>
-            </Box>
+            <Button
+  onClick={() => navigate("/subjects")}
+  sx={{
+    backgroundColor: '#003366', // Dark blue color
+    color: 'white', // White text color
+    '&:hover': {
+      backgroundColor: '#002147', // Darker shade of blue on hover
+    },
+    mr: 1, // Margin right for spacing
+  }}
+>
+  Home
+</Button>            </Box>
           </React.Fragment>
         ) : (
           <React.Fragment>
@@ -461,17 +496,33 @@ export default function HorizontalLinearStepper() {
               {getStepContent(activeStep)}
             </Typography>
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Button
-                color="inherit"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{ mr: 1 }}
-              >
-                Back
-              </Button>
+            <Button
+  color="inherit"
+  disabled={activeStep === 0}
+  onClick={handleBack}
+  sx={{
+    backgroundColor: '#003366', 
+    color: 'white', 
+    '&:hover': {
+      backgroundColor: '#002147', 
+    },
+    mr: 1, 
+  }}
+>
+  Back
+</Button>
               <Box sx={{ flex: "1 1 auto" }} />
 
-              <Button onClick={handleNext}>
+              <Button
+                onClick={handleNext}
+                sx={{
+                  backgroundColor: "#003366", 
+                  color: "white", 
+                  "&:hover": {
+                    backgroundColor: "#002147", 
+                  },
+                }}
+              >
                 {activeStep === steps.length - 1 ? "Finish" : "Next"}
               </Button>
             </Box>

@@ -11,13 +11,14 @@ import CalculateIcon from "@mui/icons-material/Calculate";
 import SubjectCard from "../components/SubjectCard";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Subjects() {
   const location = useLocation();
   const { username } = location.state || {};
+  const navigate = useNavigate();
 
-  console.log("Received Username:", username); // Check if username is received correctly
+  console.log("Received Username:", username); 
 
   useEffect(() => {
     if (username) {
@@ -26,9 +27,7 @@ function Subjects() {
   }, [username]);
 
   const welcome = (username) => {
-    // Check if username is defined before accessing its properties
     if (username) {
-      // Extract first name and cut off the last 3 characters
       const firstName = username.slice(0, -3);
 
       toast(`👋 Welcome back, ${firstName}`, {
@@ -46,9 +45,13 @@ function Subjects() {
   return (
     <>
       <ToastContainer />
+      <Button onClick={() => navigate("/dashboard", { state: { username } })}>
+  Dashboard
+</Button>
       <div>Subjects</div>
       <div className="flex-container">
         <SubjectCard className="flex-item"/>
+
 
       </div>
     </>

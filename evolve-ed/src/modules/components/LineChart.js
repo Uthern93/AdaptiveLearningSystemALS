@@ -6,6 +6,7 @@ import { useTheme } from '@mui/material/styles';
 
 // third-party
 import ReactApexChart from 'react-apexcharts';
+import { useLocation } from "react-router-dom";
 
 // chart options
 const areaChartOptions = {
@@ -36,7 +37,27 @@ const LineChart = ({ slot }) => {
   const line = theme.palette.divider;
 
   const [options, setOptions] = useState(areaChartOptions);
-
+  const [numQuestions, setNumQuestions] = useState([]);
+  const location = useLocation();
+  const { username } = location.state || {};
+  console.log(username);
+  useEffect(() => {
+    // Fetch data from the API
+    fetch('https://bargichk.pythonanywhere.com/students/getStudent')
+      .then(response => response.json())
+      .then(data => {
+        // Filter data for user "KeabB24" and extract numQuestions
+        const numQuestionsKeabB24 = data
+          .filter(entry => entry.user === username)
+          .map(entry => entry.numQuestions);
+        
+        // Set the numQuestions state
+        setNumQuestions(numQuestionsKeabB24);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+  console.log(numQuestions.slice(0, 7));
+  console.log("Current user: ", username)
   useEffect(() => {
     setOptions((prevState) => ({
       ...prevState,
@@ -93,10 +114,10 @@ const LineChart = ({ slot }) => {
     },
     {
       name: 'Tasks Done',
-      data: [0, 43, 14, 56, 24, 105, 68]
+      data: numQuestions.slice(-7)
     }
   ]);
-
+  
   useEffect(() => {
     setSeries([
       {
@@ -105,7 +126,7 @@ const LineChart = ({ slot }) => {
       },
       {
         name: 'Tasks Done',
-        data: slot === 'month' ? [110, 60, 150, 35, 60, 36, 26, 45, 65, 52, 53, 41] : [11, 32, 45, 32, 34, 52, 41]
+        data: slot === 'month' ? [110, 60, 150, 35, 60, 36, 26, 45, 65, 52, 53, 41] : numQuestions.slice(-7)
       }
     ]);
   }, [slot]);
