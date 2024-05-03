@@ -6,10 +6,8 @@ import Login from './modules/pages/Login';
 import SignUp from'./modules/pages/SignUp';
 import Subjects from './modules/pages/Subjects';
 import Algebra from './modules/pages/Algebra';
-import Home from './modules/pages/Home';
 import Tutorials from './modules/pages/Tutorials';
 import Dashboard from './modules/pages/Dashboard';
-import Test from './modules/pages/Test';
 function App() {
   return (
     <div className='App'>
