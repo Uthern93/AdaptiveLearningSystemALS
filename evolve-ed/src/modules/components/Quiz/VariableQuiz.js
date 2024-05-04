@@ -10,12 +10,10 @@ import { ToastContainer, toast } from "react-toastify";
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
 
-// Function definition
 function generateEquation() {
-  // Generate random coefficients and constant
-  const a = Math.floor(Math.random() * 10) + 1; // Random coefficient for x
-  const b = Math.floor(Math.random() * 10) + 1; // Random constant
-  const c = Math.floor(Math.random() * 20) + 5; // Random constant for result
+  const a = Math.floor(Math.random() * 10) + 1;
+  const b = Math.floor(Math.random() * 10) + 1; 
+  const c = Math.floor(Math.random() * 20) + 5; 
 
   const variables = ["x", "y", "z", "a", "b", "c"];
   const variable = variables[Math.floor(Math.random() * variables.length)];
@@ -34,7 +32,7 @@ export default function VariableQuiz() {
 
 
   React.useEffect(() => {
-    setCorrectAnswer(variable); // Set correctAnswer when component mounts
+    setCorrectAnswer(variable); 
   }, [variable]);
 
   const handleClickOpen = () => {

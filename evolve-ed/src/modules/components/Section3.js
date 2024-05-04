@@ -1,17 +1,11 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import backgroundImage from "../../img/blend.jpg";
-import { Button } from "@mui/material";
 import git from "../../img/test.png";
 
 function Section3() {
   return (
-    
-    <div id="section3"
+    <div
+      id="section3"
       style={{
-        // backgroundImage: `url(${backgroundImage})`, 
-        // backgroundSize: "cover", // Cover the entire container
-        // backgroundPosition: "center", // Setting the background image
         background: "linear-gradient(to top, #175060, #5D93C8)",
         height: "100vh",
         display: "flex",
@@ -20,18 +14,15 @@ function Section3() {
         fontSize: "24px",
         boxSizing: "border-box",
         padding: "20px",
-
-
       }}
     >
- <img
-                src={git}
-                alt="SVG"
-                style={{ width: "100%", marginBottom: "-100px" }}
-              />
-
+      <img
+        src={git}
+        alt="SVG"
+        style={{ width: "100%", marginBottom: "-100px" }}
+      />
     </div>
   );
 }
 
-export default Section3
+export default Section3;

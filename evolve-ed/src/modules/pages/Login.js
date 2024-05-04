@@ -5,7 +5,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
@@ -15,7 +14,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-//import 'react-toastify/dist/ReactToastify.css';
 
 function Copyright(props) {
   return (
@@ -26,7 +24,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Button id = "link" color="inherit" href="https://evolve-ed.netlify.app/">
+      <Button id="link" color="inherit" href="https://evolve-ed.netlify.app/">
         evolve-ed
       </Button>{" "}
       {new Date().getFullYear()}
@@ -69,7 +67,6 @@ export default function Login() {
         theme: "light",
       });
 
-    // Send POST request to login API
     try {
       const response = await fetch(
         "https://bargichk.pythonanywhere.com/accounts/login/",

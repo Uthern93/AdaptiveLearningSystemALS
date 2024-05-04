@@ -48,11 +48,9 @@ function Subjects() {
       <Button onClick={() => navigate("/dashboard", { state: { username } })}>
   Dashboard
 </Button>
-      <div>Subjects</div>
+      <h1>Subjects</h1>
       <div className="flex-container">
         <SubjectCard className="flex-item"/>
-
-
       </div>
     </>
   );
