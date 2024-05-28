@@ -61,7 +61,7 @@ function SubjectCard() {
             width: 'clamp(min(100%, 160px), 50%, min(100%, 200px))',
           }}
         >
-          <Button variant="solid" color="primary" onClick={() => navigate("/tutorial")}>
+          <Button variant="solid" color="primary" onClick={() => navigate("/tutorials")}>
             Start
           </Button>
         </CardActions>
