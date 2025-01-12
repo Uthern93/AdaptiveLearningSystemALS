@@ -12,7 +12,11 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "concurrently": "^9.1.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "mathjs": "^12.4.1",
+    "mysql2": "^3.12.0",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
     "react-confetti": "^6.1.0",
@@ -24,11 +28,14 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.5",
     "react-use": "^17.5.0",
+    "sequelize": "^6.37.5",
     "styled-components": "^6.1.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "react-scripts start",
+    "server": "node server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -50,5 +57,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.2"
   }
 }
