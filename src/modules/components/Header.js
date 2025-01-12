@@ -14,6 +14,7 @@ import Section2 from "../components/Section2";
 import Footer from "../components/Footer";
 import { Link, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Typography from "@mui/material/Typography";
 
 const Header = (props) => {
 
@@ -47,47 +48,33 @@ const Header = (props) => {
         <AppBar
           sx={{
             background:
-              "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,255,255,0))",
-            backdropFilter: "blur(10px)",
-            borderRadius: "0 0 20px 20px",
-            webkitBackdropFilter: "blur(10px)",
-            border: "1px solid rgba(255, 255, 255, 0.18)",
-            boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
+              "linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(240, 240, 240, 0.1))",
+            backdropFilter: "blur(8px)",
+            borderRadius: "0 0 12px 12px",
+            WebkitBackdropFilter: "blur(8px)",
+            border: "1px solid rgba(255, 255, 255, 0.2)",
+            boxShadow: "0 4px 16px 0 rgba(0, 0, 0, 0.2)",
           }}
         >
-          <Toolbar>
-            <div
-              style={{ width: "100px", height: "100px", overflow: "hidden" }}
+          <Toolbar sx={{ justifyContent: "center" }}>
+            <Typography
+              variant="h4"
+              component="h1"
+              sx={{
+                fontWeight: 500,
+                fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+                color: "#34495e", // A softer, modern dark gray
+                textAlign: "center",
+              }}
             >
-              <img
-                src={logo}
-                alt="SVG"
-                style={{ width: "100%", marginBottom: "-100px" }}
-              />
-            </div>
-            <div className="titleName">Evolve-Ed</div>
-            <div
-              style={{ flex: "1", display: "flex", justifyContent: "flex-end" }}
-            >
-              <Button
-                color="secondary"
-                style={{
-                  fontSize: "1.5rem",
-                  color: "black",
-                  padding: "12px 24px",
-                }}
-                onClick={handleLoginButtonClick}
-
-              >
-                Login
-              </Button>
-            </div>
+              Adaptive Learning System
+            </Typography>
           </Toolbar>
         </AppBar>
       </HideOnScroll>
       <Toolbar />
-
     </React.Fragment>
+
   );
 }
 

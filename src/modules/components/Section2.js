@@ -40,19 +40,17 @@ const StyledParagraph = styled.p`
 function Section2() {
   return (
     <SectionContainer id="section2">
-      <StyledHeading>About Evolve-ed</StyledHeading>
+      <StyledHeading>About ALS</StyledHeading>
       <StyledParagraph>
-        Welcome to Evolve-ed where innovation meets adaptation seamlessly.
-        Evolve-ed, harnesses the power of artificial intelligence to
-        revolutionize your experience. With cutting-edge AI technology Evolve-ed
+        Welcome to ALS (Adaptive LEarning System) where innovation meets adaptation seamlessly.
+        ALS, harnesses the power of artificial intelligence to
+        revolutionize your experience. With cutting-edge AI technology ALS
         doesn't just react; it learns, evolves, and adapts through intricate
         patterns in your usage, ensuring that every interaction feels
         tailor-made for you. Whether you're exploring our diverse range of
         features or delving into our immersive content, our platform is designed
         to understand your needs and preferences, providing a personalized
-        journey like no other. Join us in shaping the future of technology,
-        where AI doesn't just follow commands, but anticipates your desires,
-        making every moment exceptional.
+        journey like no other.
       </StyledParagraph>
     </SectionContainer>
   );

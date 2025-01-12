@@ -40,7 +40,7 @@ function Section1() {
             marginBottom: "1px",
           }}
         >
-          Adaptive Learning
+          Adaptive Learning System
         </h1>
         <div>
           <p style={{ margin: "0" }}>
@@ -57,7 +57,7 @@ function Section1() {
             fontSize: "1.5rem",
           }}
           variant="outlined"
-          onClick={() => navigate("/signup")}
+          onClick={() => navigate("/subjects")}
         >
           Get Started
         </Button>
@@ -78,8 +78,16 @@ function Section1() {
           backgroundRepeat: "no-repeat",
           backgroundSize: "25px 40px",
           backgroundPositionX: "center",
+          cursor: "pointer",
         }}
-      />
+        onClick={(e) => {
+          e.preventDefault();
+          const section = document.querySelector("#section2");
+          if (section) {
+            section.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }}
+      ></a>
     </div>
   );
 }

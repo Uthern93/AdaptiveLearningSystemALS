@@ -6,8 +6,8 @@ function Copyright(props) {
   return (
     <Typography variant="head" color="text.secondary" align="center" {...props}>
       {"Copyright © "}
-      <Link color="inherit" href="https://evolve-ed.netlify.app/">
-        evolve-ed
+      <Link color="inherit" href="">
+        ALS
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
