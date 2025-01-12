@@ -1,11 +1,14 @@
 const { Sequelize, DataTypes } = require('sequelize');
+require('dotenv').config(); // Make sure dotenv is required here
+
 const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
+  process.env.DB_NAME,  // Database name
+  process.env.DB_USER,  // Database user
+  process.env.DB_PASSWORD,  // Leave blank if no password
   {
-    host: process.env.DB_HOST,
+    host: process.env.DB_HOST, // Host
     dialect: 'mysql',
+    logging: console.log,
   }
 );
 
