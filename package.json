@@ -1,7 +1,5 @@
 {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-  "name": "evolve-ed",
+  "name": "ALS",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -32,7 +30,8 @@
     "react-use": "^17.5.0",
     "sequelize": "^6.37.5",
     "styled-components": "^6.1.8",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "axios": "^1.7.9"
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
@@ -62,13 +61,5 @@
   },
   "devDependencies": {
     "sequelize-cli": "^6.6.2"
-=======
-  "dependencies": {
-    "axios": "^1.7.9"
->>>>>>> Stashed changes
-=======
-  "dependencies": {
-    "axios": "^1.7.9"
->>>>>>> Stashed changes
   }
 }
