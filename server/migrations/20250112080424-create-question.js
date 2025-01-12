@@ -4,34 +4,34 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Questions', {
-      question_id: {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      content_id: {
+      tutorial_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Content',
-          key: 'content_id',
+          model: 'Tutorials',
+          key: 'id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
+      question_text: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       options: {
         type: Sequelize.JSON,
-        allowNull: false,
+        allowNull: true,
       },
       correct_answer: {
         type: Sequelize.STRING,
         allowNull: false,
       },
       difficulty_level: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      topic: {
         type: Sequelize.STRING,
         allowNull: false,
       },

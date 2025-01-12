@@ -2,49 +2,31 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Question extends Model {
+  class Subject extends Model {
     /**
      * Define associations here
      * This method is called automatically by Sequelize.
      */
     static associate(models) {
-      // Question belongs to Tutorial
-      Question.belongsTo(models.Tutorial, { foreignKey: 'tutorial_id', as: 'tutorial' });
+      // Subject has many Tutorials
+      Subject.hasMany(models.Tutorial, { foreignKey: 'subject_id', as: 'tutorials' });
     }
   }
 
-  Question.init(
+  Subject.init(
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      tutorial_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Tutorials',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
-      question_text: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      options: {
-        type: DataTypes.JSON,
+      description: {
+        type: DataTypes.TEXT,
         allowNull: true,
-      },
-      correct_answer: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      difficulty_level: {
-        type: DataTypes.STRING,
-        allowNull: false,
       },
       created_at: {
         type: DataTypes.DATE,
@@ -59,12 +41,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Question',
-      tableName: 'Questions',
+      modelName: 'Subject',
+      tableName: 'Subjects',
       timestamps: false, // Since the table already has `created_at` and `updated_at`
       underscored: true, // Use snake_case column names
     }
   );
 
-  return Question;
+  return Subject;
 };

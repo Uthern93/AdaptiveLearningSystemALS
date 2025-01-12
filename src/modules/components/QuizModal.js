@@ -32,7 +32,7 @@ const QuizModal = ({ questions, tutorial, onClose }) => {
             <h3>{question.content_id}</h3>
             <RadioGroup
               onChange={(e) => handleAnswerChange(question.question_id, e.target.value)}
-              value={answers[question.question_id] || ''}
+              value={answers[question.id] || ''}
             >
               {JSON.parse(question.options).map((option, index) => (
                 <FormControlLabel key={index} value={option} control={<Radio />} label={option} />

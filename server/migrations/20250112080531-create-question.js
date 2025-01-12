@@ -9,8 +9,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      content_id: {
+      tutorial_id: {
         type: Sequelize.INTEGER
+      },
+      question_text: {
+        type: Sequelize.STRING
       },
       options: {
         type: Sequelize.JSON
@@ -19,9 +22,6 @@ module.exports = {
         type: Sequelize.STRING
       },
       difficulty_level: {
-        type: Sequelize.STRING
-      },
-      topic: {
         type: Sequelize.STRING
       },
       createdAt: {

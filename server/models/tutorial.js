@@ -2,49 +2,47 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Question extends Model {
+  class Tutorial extends Model {
     /**
      * Define associations here
      * This method is called automatically by Sequelize.
      */
     static associate(models) {
-      // Question belongs to Tutorial
-      Question.belongsTo(models.Tutorial, { foreignKey: 'tutorial_id', as: 'tutorial' });
+      // Tutorial belongs to Subject
+      Tutorial.belongsTo(models.Subject, { foreignKey: 'subject_id', as: 'subject' });
     }
   }
 
-  Question.init(
+  Tutorial.init(
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      tutorial_id: {
+      subject_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'Tutorials',
+          model: 'Subjects', // Model the foreign key references
           key: 'id',
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
       },
-      question_text: {
+      title: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      options: {
-        type: DataTypes.JSON,
+      description: {
+        type: DataTypes.TEXT,
         allowNull: true,
       },
-      correct_answer: {
+      content_type: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      difficulty_level: {
+      url: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       created_at: {
         type: DataTypes.DATE,
@@ -59,12 +57,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Question',
-      tableName: 'Questions',
+      modelName: 'Tutorial',
+      tableName: 'Tutorials',
       timestamps: false, // Since the table already has `created_at` and `updated_at`
       underscored: true, // Use snake_case column names
     }
   );
 
-  return Question;
+  return Tutorial;
 };
