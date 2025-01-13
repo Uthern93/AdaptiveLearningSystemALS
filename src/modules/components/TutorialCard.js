@@ -6,7 +6,9 @@ import {
   Typography, 
   Button, 
   Box,
-  IconButton
+  IconButton,
+  Tooltip,
+  Divider
 } from '@mui/material';
 import { 
   VideoLibrary, 
@@ -14,10 +16,11 @@ import {
   PictureAsPdf, 
   Slideshow, 
   Games,
-  Fullscreen
+  Fullscreen,
+  QuizOutlined
 } from '@mui/icons-material';
 
-const TutorialCard = ({ tutorial, onClick }) => {
+const TutorialCard = ({ tutorial, onClick, onCreateQuiz }) => {
   const [expanded, setExpanded] = React.useState(false);
 
   // Function to render embedded content based on content type and URL
@@ -152,7 +155,12 @@ const TutorialCard = ({ tutorial, onClick }) => {
       height: '100%', 
       display: 'flex', 
       flexDirection: 'column',
-      transition: 'width 0.3s ease'
+      transition: 'all 0.3s ease',
+      position: 'relative',
+      '&:hover': {
+        transform: 'translateY(-4px)',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+      }
     }}>
       <CardContent sx={{ flexGrow: 1 }}>
         <Box sx={{ 
@@ -167,19 +175,60 @@ const TutorialCard = ({ tutorial, onClick }) => {
               {tutorial.content_type}
             </Typography>
           </Box>
-          <IconButton 
-            onClick={() => setExpanded(!expanded)}
-            size="small"
-          >
-            <Fullscreen />
-          </IconButton>
+          <Box sx={{ display: 'flex', gap: 1 }}>
+            <Tooltip title="Create Quiz">
+              <IconButton 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onCreateQuiz(tutorial);
+                }}
+                size="small"
+                sx={{
+                  color: 'primary.main',
+                  '&:hover': {
+                    backgroundColor: 'rgba(25, 118, 210, 0.04)'
+                  }
+                }}
+              >
+                <QuizOutlined />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title={expanded ? "Collapse" : "Expand"}>
+              <IconButton 
+                onClick={() => setExpanded(!expanded)}
+                size="small"
+              >
+                <Fullscreen />
+              </IconButton>
+            </Tooltip>
+          </Box>
         </Box>
         
-        <Typography variant="h6" component="div" gutterBottom>
+        <Typography 
+          variant="h6" 
+          component="div" 
+          gutterBottom
+          sx={{
+            fontSize: '1.1rem',
+            fontWeight: 600,
+            color: 'primary.main'
+          }}
+        >
           {tutorial.title}
         </Typography>
         
-        <Typography variant="body2" color="text.secondary" gutterBottom>
+        <Typography 
+          variant="body2" 
+          color="text.secondary" 
+          gutterBottom
+          sx={{
+            display: '-webkit-box',
+            WebkitLineClamp: expanded ? 'unset' : 3,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            mb: 2
+          }}
+        >
           {tutorial.description}
         </Typography>
         
@@ -187,24 +236,55 @@ const TutorialCard = ({ tutorial, onClick }) => {
           mt: 2, 
           width: '100%',
           height: expanded ? 'auto' : '300px',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          borderRadius: '8px',
+          border: '1px solid rgba(0,0,0,0.12)'
         }}>
           {renderEmbeddedContent(tutorial.url, tutorial.content_type)}
         </Box>
       </CardContent>
       
-      <CardActions>
-        <Button size="small" onClick={onClick}>
-          Take Quiz
-        </Button>
-        <Button 
-          size="small" 
-          href={tutorial.url} 
-          target="_blank" 
-          rel="noopener noreferrer"
-        >
-          Open in New Tab
-        </Button>
+      <Divider sx={{ mx: 2 }} />
+      
+      <CardActions sx={{ 
+        padding: '16px',
+        display: 'flex',
+        justifyContent: 'space-between'
+      }}>
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          <Button 
+            size="small" 
+            onClick={onClick}
+            variant="contained"
+            startIcon={<QuizOutlined />}
+            sx={{
+              backgroundColor: 'primary.main',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'primary.dark'
+              }
+            }}
+          >
+            Take Quiz
+          </Button>
+          <Button 
+            size="small" 
+            href={tutorial.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            variant="outlined"
+            sx={{
+              borderColor: 'primary.main',
+              color: 'primary.main',
+              '&:hover': {
+                borderColor: 'primary.dark',
+                backgroundColor: 'rgba(25, 118, 210, 0.04)'
+              }
+            }}
+          >
+            Open in New Tab
+          </Button>
+        </Box>
       </CardActions>
     </Card>
   );

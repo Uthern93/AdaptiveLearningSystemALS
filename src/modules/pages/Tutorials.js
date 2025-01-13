@@ -35,6 +35,77 @@ const Tutorials = () => {
   const [quizQuestions, setQuizQuestions] = useState([]); // Store quiz questions
   const [selectedTutorial, setSelectedTutorial] = useState(null); // Store the selected tutorial
   const navigate = useNavigate();
+  const [quizCreateOpen, setQuizCreateOpen] = useState(false);
+  const [selectedTutorialForQuiz, setSelectedTutorialForQuiz] = useState(null);
+  const [newQuestion, setNewQuestion] = useState({
+    question_text: '',
+    options: ['', '', '', ''], // Array of 4 options
+    correct_answer: '',
+    difficulty_level: 'medium'
+  });
+
+  // Difficulty level options
+  const difficultyLevels = ['easy', 'medium', 'hard'];
+
+  // Handle opening quiz creation dialog
+  const handleCreateQuizClick = (tutorial) => {
+    setSelectedTutorialForQuiz(tutorial);
+    setQuizCreateOpen(true);
+  };
+
+  // Handle question input change
+  const handleQuestionChange = (e) => {
+    const { name, value } = e.target;
+    setNewQuestion(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Handle option change
+  const handleOptionChange = (index, value) => {
+    setNewQuestion(prev => ({
+      ...prev,
+      options: prev.options.map((opt, i) => i === index ? value : opt)
+    }));
+  };
+
+  // Handle adding new question
+  const handleAddQuestion = () => {
+    // Validation
+    if (!newQuestion.question_text.trim()) {
+      toast.error('Question text is required!');
+      return;
+    }
+    if (newQuestion.options.some(opt => !opt.trim())) {
+      toast.error('All options must be filled!');
+      return;
+    }
+    if (!newQuestion.correct_answer) {
+      toast.error('Correct answer must be selected!');
+      return;
+    }
+
+    // Save question to database
+    axiosBE.post(`/tutorials/${selectedTutorialForQuiz.id}/questions`, {
+      ...newQuestion,
+      tutorial_id: selectedTutorialForQuiz.id
+    })
+      .then(response => {
+        toast.success('Question added successfully!');
+        setNewQuestion({
+          question_text: '',
+          options: ['', '', '', ''],
+          correct_answer: '',
+          difficulty_level: 'medium'
+        });
+        // Optionally close the dialog or keep it open for adding more questions
+      })
+      .catch(error => {
+        console.error('Error adding question:', error);
+        toast.error('Failed to add question');
+      });
+  };
 
   // Content type options
   const contentTypes = [
@@ -47,7 +118,7 @@ const Tutorials = () => {
 
   // Fetch tutorials from DB based on subjectId
   useEffect(() => {
-    axiosBE.get(`/api/subjects/${subjectId}/tutorials`) // Replace with your API endpoint for tutorials
+    axiosBE.get(`/subjects/${subjectId}/tutorials`) // Replace with your API endpoint for tutorials
       .then(response => {
         setTutorials(Array.isArray(response.data) ? response.data : []);
       })
@@ -60,7 +131,7 @@ const Tutorials = () => {
   // Fetch quiz questions when a tutorial is clicked
   const handleTutorialClick = (tutorial) => {
     setSelectedTutorial(tutorial);
-    axiosBE.get(`/api/tutorials/${tutorial.id}/questions`) // Fetch quiz questions based on tutorial
+    axiosBE.get(`/tutorials/${tutorial.id}/questions`) // Fetch quiz questions based on tutorial
       .then(response => {
         setQuizQuestions(Array.isArray(response.data) ? response.data : []);
         setQuizOpen(true); 
@@ -106,7 +177,7 @@ const Tutorials = () => {
     }
 
     // Save to database
-    axiosBE.post(`/api/subjects/${subjectId}/tutorials`, newTutorial)
+    axiosBE.post(`/subjects/${subjectId}/tutorials`, newTutorial)
       .then(response => {
         setTutorials((prev) => [...prev, response.data]);
         toast.success('Tutorial added successfully!');
@@ -247,12 +318,13 @@ const Tutorials = () => {
                 key={tutorial.id}
                 tutorial={tutorial}
                 onClick={() => handleTutorialClick(tutorial)}
+                onCreateQuiz={(tutorial) => handleCreateQuizClick(tutorial)}
                 sx={{
                   height: '100%',
                   display: 'flex',
                   flexDirection: 'column'
                 }}
-              />
+            />
             ))}
           </Box>
         </Box>
@@ -350,6 +422,106 @@ const Tutorials = () => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <Dialog 
+      open={quizCreateOpen} 
+      onClose={() => setQuizCreateOpen(false)}
+      maxWidth="md" 
+      fullWidth
+      PaperProps={{
+        sx: {
+          borderRadius: 2,
+          boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+          bgcolor: 'rgba(255, 255, 255, 0.9)',
+          backdropFilter: 'blur(10px)'
+        }
+      }}
+    >
+      <DialogTitle sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        Create Quiz Question for {selectedTutorialForQuiz?.title}
+      </DialogTitle>
+      <DialogContent sx={{ mt: 2 }}>
+        <TextField
+          autoFocus
+          margin="dense"
+          name="question_text"
+          label="Question Text"
+          type="text"
+          fullWidth
+          variant="outlined"
+          value={newQuestion.question_text}
+          onChange={handleQuestionChange}
+          sx={{ mb: 3 }}
+        />
+
+        {/* Options */}
+        <Box sx={{ mb: 3 }}>
+          {newQuestion.options.map((option, index) => (
+            <TextField
+              key={index}
+              margin="dense"
+              label={`Option ${index + 1}`}
+              type="text"
+              fullWidth
+              variant="outlined"
+              value={option}
+              onChange={(e) => handleOptionChange(index, e.target.value)}
+              sx={{ mb: 2 }}
+            />
+          ))}
+        </Box>
+
+        {/* Correct Answer Selection */}
+        <FormControl fullWidth sx={{ mb: 3 }}>
+          <InputLabel>Correct Answer</InputLabel>
+          <Select
+            name="correct_answer"
+            value={newQuestion.correct_answer}
+            label="Correct Answer"
+            onChange={handleQuestionChange}
+          >
+            {newQuestion.options.map((option, index) => (
+              <MenuItem key={index} value={option} disabled={!option.trim()}>
+                {option || `Option ${index + 1}`}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        {/* Difficulty Level */}
+        <FormControl fullWidth>
+          <InputLabel>Difficulty Level</InputLabel>
+          <Select
+            name="difficulty_level"
+            value={newQuestion.difficulty_level}
+            label="Difficulty Level"
+            onChange={handleQuestionChange}
+          >
+            {difficultyLevels.map((level) => (
+              <MenuItem key={level} value={level}>
+                {level.charAt(0).toUpperCase() + level.slice(1)}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </DialogContent>
+      <DialogActions sx={{ p: 2, borderTop: 1, borderColor: 'divider' }}>
+        <Button onClick={() => setQuizCreateOpen(false)}>Close</Button>
+        <Button 
+          onClick={handleAddQuestion}
+          variant="contained"
+          sx={{
+            px: 3,
+            bgcolor: 'primary.main',
+            '&:hover': {
+              bgcolor: 'primary.dark'
+            }
+          }}
+        >
+          Add Question
+        </Button>
+      </DialogActions>
+    </Dialog>
 
       {/* Quiz Modal */}
       {quizOpen && (
