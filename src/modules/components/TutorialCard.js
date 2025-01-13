@@ -1,4 +1,3 @@
-// TutorialCard.jsx
 import React from 'react';
 import { 
   Card, 
@@ -127,6 +126,23 @@ const TutorialCard = ({ tutorial, onClick }) => {
             </a>
           </Typography>
         );
+    }
+  };
+
+  const getContentTypeIcon = (type) => {
+    switch (type) {
+      case 'video':
+        return <VideoLibrary />;
+      case 'article':
+        return <Article />;
+      case 'pdf':
+        return <PictureAsPdf />;
+      case 'presentation':
+        return <Slideshow />;
+      case 'interactive':
+        return <Games />;
+      default:
+        return null;
     }
   };
 
