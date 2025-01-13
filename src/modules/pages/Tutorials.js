@@ -11,11 +11,25 @@ const Tutorials = () => {
   const { subjectId } = useParams(); // Fetch the subject ID from the URL
   const [tutorials, setTutorials] = useState([]); // Store tutorials
   const [open, setOpen] = useState(false); // Control modal visibility
-  const [newTutorial, setNewTutorial] = useState({ title: '', description: '' }); // New tutorial data
+  const [newTutorial, setNewTutorial] = useState({ 
+    title: '', 
+    description: '', 
+    content_type: '', 
+    url: '' 
+  });
   const [quizOpen, setQuizOpen] = useState(false); // Control quiz modal visibility
   const [quizQuestions, setQuizQuestions] = useState([]); // Store quiz questions
   const [selectedTutorial, setSelectedTutorial] = useState(null); // Store the selected tutorial
   const navigate = useNavigate();
+
+  // Content type options
+  const contentTypes = [
+    'video',
+    'article',
+    'pdf',
+    'presentation',
+    'interactive'
+  ];
 
   // Fetch tutorials from DB based on subjectId
   useEffect(() => {
@@ -28,37 +42,6 @@ const Tutorials = () => {
         toast.error('Failed to fetch tutorials');
       });
   }, [subjectId]);
-
-  // Open/close modal
-  const handleClickOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  // Handle input change for new tutorial
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewTutorial((prev) => ({ ...prev, [name]: value }));
-  };
-
-  // Handle form submission to add new tutorial
-  const handleAddTutorial = () => {
-    if (!newTutorial.title.trim()) {
-      toast.error('Tutorial title is required!');
-      return;
-    }
-
-    // Save to database
-    axios.post(`/api/subjects/${subjectId}/tutorials`, newTutorial) // Replace with your API endpoint
-      .then(response => {
-        setTutorials((prev) => [...prev, response.data]); // Add new tutorial to state
-        toast.success('Tutorial added successfully!');
-        setNewTutorial({ title: '', description: '' }); // Reset form
-        handleClose(); // Close modal
-      })
-      .catch(error => {
-        console.error('Error adding tutorial:', error);
-        toast.error('Failed to add tutorial');
-      });
-  };
 
   // Fetch quiz questions when a tutorial is clicked
   const handleTutorialClick = (tutorial) => {
@@ -73,6 +56,59 @@ const Tutorials = () => {
         toast.error('Failed to fetch quiz questions');
       });
   };
+
+  // Open/close modal
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  // Handle input change for new tutorial
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewTutorial((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Modified handleAddTutorial with validation
+  const handleAddTutorial = () => {
+    // Validation
+    if (!newTutorial.title.trim()) {
+      toast.error('Tutorial title is required!');
+      return;
+    }
+    if (!newTutorial.content_type) {
+      toast.error('Content type is required!');
+      return;
+    }
+    if (!newTutorial.url.trim()) {
+      toast.error('URL is required!');
+      return;
+    }
+
+    // URL validation
+    try {
+      new URL(newTutorial.url);
+    } catch (e) {
+      toast.error('Please enter a valid URL');
+      return;
+    }
+
+    // Save to database
+    axios.post(`/api/subjects/${subjectId}/tutorials`, newTutorial)
+      .then(response => {
+        setTutorials((prev) => [...prev, response.data]);
+        toast.success('Tutorial added successfully!');
+        setNewTutorial({ 
+          title: '', 
+          description: '', 
+          content_type: '', 
+          url: '' 
+        });
+        handleClose();
+      })
+      .catch(error => {
+        console.error('Error adding tutorial:', error);
+        toast.error('Failed to add tutorial');
+      });
+    };
 
   return (
     <>
@@ -107,6 +143,7 @@ const Tutorials = () => {
               onChange={handleInputChange}
               sx={{ marginBottom: '20px' }}
             />
+            
             <TextField
               margin="dense"
               name="description"
@@ -118,6 +155,36 @@ const Tutorials = () => {
               onChange={handleInputChange}
               multiline
               rows={3}
+              sx={{ marginBottom: '20px' }}
+            />
+
+            <FormControl fullWidth sx={{ marginBottom: '20px' }}>
+              <InputLabel id="content-type-label">Content Type</InputLabel>
+              <Select
+                labelId="content-type-label"
+                name="content_type"
+                value={newTutorial.content_type}
+                label="Content Type"
+                onChange={handleInputChange}
+              >
+                {contentTypes.map((type) => (
+                  <MenuItem key={type} value={type}>
+                    {type.charAt(0).toUpperCase() + type.slice(1)}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <TextField
+              margin="dense"
+              name="url"
+              label="URL"
+              type="url"
+              fullWidth
+              variant="outlined"
+              value={newTutorial.url}
+              onChange={handleInputChange}
+              helperText="Enter the URL for the tutorial content"
             />
           </DialogContent>
           <DialogActions>

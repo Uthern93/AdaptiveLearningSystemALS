@@ -5,7 +5,7 @@ const db = require('../models');
 const Subject = db.Subject;
 
 // routes/api.js
-router.get("/users", async (req, res) => {
+router.get("/subjects", async (req, res) => {
     console.log('GET /api/users request received');
     try {
       const subjects = await Subject.findAll();
