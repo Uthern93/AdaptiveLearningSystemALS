@@ -16,7 +16,7 @@ const Subjects = () => {
   useEffect(() => {
     axiosBE.get('/subjects') // Replace with your API endpoint
       .then(response => {
-        setSubjects(response); // Load subjects into state
+        setSubjects(Array.isArray(response.data) ? response.data : []);; // Load subjects into state
       })
       .catch(error => {
         console.error('Error fetching subjects:', error);

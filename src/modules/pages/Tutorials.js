@@ -12,7 +12,7 @@ import {
   Select,
   MenuItem
 } from '@mui/material';
-import axios from 'axios';
+import axiosBE from '../../api/axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -45,9 +45,9 @@ const Tutorials = () => {
 
   // Fetch tutorials from DB based on subjectId
   useEffect(() => {
-    axios.get(`/api/subjects/${subjectId}/tutorials`) // Replace with your API endpoint for tutorials
+    axiosBE.get(`/api/subjects/${subjectId}/tutorials`) // Replace with your API endpoint for tutorials
       .then(response => {
-        setTutorials(response.data); // Load tutorials into state
+        setTutorials(Array.isArray(response.data) ? response.data : []);
       })
       .catch(error => {
         console.error('Error fetching tutorials:', error);
@@ -58,9 +58,9 @@ const Tutorials = () => {
   // Fetch quiz questions when a tutorial is clicked
   const handleTutorialClick = (tutorial) => {
     setSelectedTutorial(tutorial);
-    axios.get(`/api/tutorials/${tutorial.id}/questions`) // Fetch quiz questions based on tutorial
+    axiosBE.get(`/api/tutorials/${tutorial.id}/questions`) // Fetch quiz questions based on tutorial
       .then(response => {
-        setQuizQuestions(response.data);
+        setQuizQuestions(Array.isArray(response.data) ? response.data : []);
         setQuizOpen(true); // Open the quiz modal
       })
       .catch(error => {
@@ -104,7 +104,7 @@ const Tutorials = () => {
     }
 
     // Save to database
-    axios.post(`/api/subjects/${subjectId}/tutorials`, newTutorial)
+    axiosBE.post(`/api/subjects/${subjectId}/tutorials`, newTutorial)
       .then(response => {
         setTutorials((prev) => [...prev, response.data]);
         toast.success('Tutorial added successfully!');
