@@ -36,7 +36,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\" --names \"backend,frontend\" --prefix-colors \"blue,green\"",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "client": "react-scripts start",
     "server": "node server/index.js",
     "build": "react-scripts build",
