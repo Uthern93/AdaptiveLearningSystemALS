@@ -116,4 +116,34 @@ const Tutorial = db.Tutorial;
     }
   });
   
+  router.post("/tutorials/:tutorialId/questions", async (req, res) => {
+    const { tutorialId } = req.params;
+    const { question_text, options, correct_answer, difficulty_level } = req.body;
+  
+    console.log(`POST /api/tutorials/${tutorialId}/questions request received`);
+    if (!question_text || !options || !correct_answer || !difficulty_level) {
+      return res.status(400).json({ error: 'All fields (question_text, options, correct_answer, difficulty_level) are required' });
+    }
+    try {
+      const tutorial = await Tutorial.findByPk(tutorialId);
+      if (!tutorial) {
+        return res.status(404).json({ error: 'Tutorial not found' });
+      }
+      const newQuestion = await db.Question.create({
+        question_text,
+        options,
+        correct_answer,
+        difficulty_level,
+        tutorial_id: tutorialId,
+      });
+  
+      console.log('New question created:', newQuestion);
+      res.status(201).json(newQuestion);
+    } catch (err) {
+      console.error('Error in POST /api/tutorials/:tutorialId/questions:', err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
+  
 module.exports = router;
