@@ -9,8 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // Tutorial belongs to Subject
-      Tutorial.belongsTo(models.Subject, { foreignKey: 'subject_id', as: 'subject' });
+      Tutorial.belongsTo(models.Subject, { foreignKey: 'subject_id', as: 'subjects' });
+      Tutorial.hasMany(models.Question, { foreignKey: 'tutorial_id', as: 'questions'});
     }
+    
   }
 
   Tutorial.init(
@@ -58,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Tutorial',
-      tableName: 'Tutorials',
+      tableName: 'tutorials',
       timestamps: false, // Since the table already has `created_at` and `updated_at`
       underscored: true, // Use snake_case column names
     }
