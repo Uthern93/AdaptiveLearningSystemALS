@@ -38,7 +38,7 @@ const Subjects = () => {
       return;
     }
 
-    axiosBE.post('/api/subjects', newSubject)
+    axiosBE.post('/subjects', newSubject)
       .then(response => {
         setSubjects((prev) => [...prev, response.data]);
         toast.success('Subject added successfully!');

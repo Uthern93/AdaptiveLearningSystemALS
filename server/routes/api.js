@@ -94,27 +94,39 @@ const Tutorial = db.Tutorial;
   
   router.get("/tutorials/:tutorialId/questions", async (req, res) => {
     const { tutorialId } = req.params;
-    console.log(`GET /api/subjects/${tutorialId}/question request received`);
-  
+    const { difficulty_level } = req.query;
+
     try {
-      const tutorial = await Tutorial.findOne({
-        where: { id: tutorialId },
-        include: [
-          {
-            model: db.Question,
-            as: 'questions',
-          }
-        ]
-      });
-      if (!tutorial) {
-        return res.status(404).json({ error: 'Tutorial not found' });
-      }
-      res.json(tutorial.questions);
+        const tutorial = await Tutorial.findByPk(tutorialId);
+        if (!tutorial) {
+            return res.status(404).json({ error: 'Tutorial not found' });
+        }
+
+        let whereClause = {
+            tutorial_id: tutorialId,
+        };
+
+        // If difficulty_level is specified, filter by it
+        if (difficulty_level) {
+            whereClause.difficulty_level = difficulty_level;
+        } else {
+            // Default to medium difficulty if no difficulty specified
+            whereClause.difficulty_level = 'medium';
+        }
+
+        const questions = await db.Question.findAll({
+            where: whereClause,
+            order: [[db.sequelize.fn('RAND')]],
+            limit: 5
+        });
+
+        return res.status(200).json(questions);
+
     } catch (err) {
-      console.error('Error in GET /api/tutorials/:tutorialId/questions:', err);
-      res.status(500).json({ error: 'Internal server error' });
+        console.error('Error in GET /api/tutorials/:tutorialId/questions:', err);
+        return res.status(500).json({ error: 'Internal server error' });
     }
-  });
+});
   
   router.post("/tutorials/:tutorialId/questions", async (req, res) => {
     const { tutorialId } = req.params;

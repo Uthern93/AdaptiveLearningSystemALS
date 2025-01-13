@@ -43,6 +43,9 @@ const Tutorials = () => {
     correct_answer: '',
     difficulty_level: 'medium'
   });
+  const [currentDifficulty, setCurrentDifficulty] = useState('medium');
+  const [allQuestions, setAllQuestions] = useState([]); // Store all questions
+  
 
   // Difficulty level options
   const difficultyLevels = ['easy', 'medium', 'hard'];
@@ -131,16 +134,46 @@ const Tutorials = () => {
   // Fetch quiz questions when a tutorial is clicked
   const handleTutorialClick = (tutorial) => {
     setSelectedTutorial(tutorial);
-    axiosBE.get(`/tutorials/${tutorial.id}/questions`) // Fetch quiz questions based on tutorial
-      .then(response => {
-        setQuizQuestions(Array.isArray(response.data) ? response.data : []);
-        setQuizOpen(true); 
-      })
-      .catch(error => {
-        console.error('Error fetching quiz questions:', error);
-        toast.error('Failed to fetch quiz questions');
+    fetchQuizQuestions(tutorial.id); // No difficulty parameter for initial fetch
+};
+
+const fetchQuizQuestions = async (tutorialId, difficulty = 'medium') => {
+  try {
+      const response = await axiosBE.get(`/tutorials/${tutorialId}/questions`, {
+          params: { difficulty_level: difficulty }
       });
-  };
+      
+      console.log('API Response:', response.data);
+      
+      // Store all questions
+      const questions = Array.isArray(response.data) ? response.data : [];
+      setAllQuestions(questions);
+      
+      // Filter questions by difficulty
+      const filteredQuestions = questions.filter(q => q.difficulty_level === difficulty);
+      
+      if (filteredQuestions.length === 0) {
+          toast.info(`No questions available for ${difficulty} difficulty`);
+          setQuizOpen(false);
+          return;
+      }
+      
+      setQuizQuestions(filteredQuestions);
+      setCurrentDifficulty(difficulty);
+      setQuizOpen(true);
+      
+  } catch (error) {
+      console.error('Error fetching quiz questions:', error);
+      toast.error('Failed to fetch quiz questions');
+      setQuizOpen(false);
+  }
+};
+
+const handleDifficultyChange = async (newDifficulty) => {
+  if (selectedTutorial) {
+      await fetchQuizQuestions(selectedTutorial.id, newDifficulty);
+  }
+};
 
   // Open/close modal
   const handleClickOpen = () => setOpen(true);
@@ -526,11 +559,18 @@ const Tutorials = () => {
       {/* Quiz Modal */}
       {quizOpen && (
         <QuizModal
-          questions={quizQuestions}
-          tutorial={selectedTutorial}
-          onClose={() => setQuizOpen(false)}
+            questions={quizQuestions}
+            tutorial={selectedTutorial}
+            onClose={() => {
+                setQuizOpen(false);
+                setQuizQuestions([]);
+                setAllQuestions([]);
+                setCurrentDifficulty('medium');
+            }}
+            onDifficultyChange={handleDifficultyChange}
+            currentDifficulty={currentDifficulty}
         />
-      )}
+    )}
     </Box>
   );
 };
