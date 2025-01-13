@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, Box } from '@mui/material';
-import axios from 'axios';
 import SubjectCard from "../components/SubjectCard";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import axiosBE from '../../api/axios';
 
 const Subjects = () => {
   const [subjects, setSubjects] = useState([]); // Store subjects
@@ -14,9 +14,9 @@ const Subjects = () => {
 
   // Fetch subjects from DB on load
   useEffect(() => {
-    axios.get('/api/subjects') // Replace with your API endpoint
+    axiosBE.get('/subjects') // Replace with your API endpoint
       .then(response => {
-        setSubjects(response.data); // Load subjects into state
+        setSubjects(response); // Load subjects into state
       })
       .catch(error => {
         console.error('Error fetching subjects:', error);
@@ -42,7 +42,7 @@ const Subjects = () => {
     }
 
     // Save to database
-    axios.post('/api/subjects', newSubject) // Replace with your API endpoint
+    axiosBE.post('/api/subjects', newSubject) // Replace with your API endpoint
       .then(response => {
         setSubjects((prev) => [...prev, response.data]); // Add new subject to state
         toast.success('Subject added successfully!');

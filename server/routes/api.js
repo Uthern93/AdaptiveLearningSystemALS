@@ -6,7 +6,7 @@ const Subject = db.Subject;
 
 // routes/api.js
 router.get("/subjects", async (req, res) => {
-    console.log('GET /api/users request received');
+    console.log('GET /api/subjects request received');
     try {
       const subjects = await Subject.findAll();
       console.log('Subjects retrieved:', subjects);
